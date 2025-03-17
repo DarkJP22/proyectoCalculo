@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Alien-Tower-8</title>
+
+    <link
+      href="http://fonts.googleapis.com/css?family=Cherry+Swash"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="main-menu">
+      <h1>Math Escape</h1>
+      <button onclick="startGame()">Iniciar Juego</button>
+      <button onclick="showRules()">Reglas</button>
+      <button onclick="showCredits()">Integrantes</button>
+      <button onclick="showFeedback()">Retroalimentación</button>
+    </div>
+
+    <div id="rules" style="display: none">
+      <h2>Reglas del Juego</h2>
+      <p>
+        1. Usa las flechas o W-A-S-D para moverte y la barra espaciadora para
+        saltar.
+      </p>
+      <p>2. Evita los enemigos y recolecta monedas para sumar puntos.</p>
+      <p>
+        3. Si pierdes todas las vidas, responde una pregunta sobre una integral
+        definida para ganar una vida extra, pero perderas el 25% de tus monedas.
+      </p>
+      <button onclick="hideRules()">Cerrar</button>
+    </div>
+
+    <div id="credits" style="display: none">
+      <h2>Integrantes del Proyecto</h2>
+      <p>
+        José Pablo Alemán <br />
+        Fiorella Zuñiga <br />
+        Jordan Sanchez
+      </p>
+      <button onclick="hideCredits()">Cerrar</button>
+    </div>
+    
+    <!-- Modal de Retroalimentación -->
+    <div id="feedback-modal" style="display: none">
+      <h2>Retroalimentación</h2>
+      <p>Selecciona una pregunta para ver su procedimiento:</p>
+      <div id="feedback-questions-list"></div>
+      <!-- Aquí se mostrarán las preguntas -->
+      <button onclick="closeFeedbackModal()">Cerrar</button>
+    </div>
+
+    <!-- Modal de Procedimiento -->
+    <div id="procedure-modal" style="display: none">
+      <h2>Procedimiento</h2>
+      <img
+        id="procedure-image"
+        src=""
+        alt="Procedimiento de la pregunta"
+        style="width: 100%; max-width: 500px; margin-bottom: 20px"
+      />
+      <button onclick="closeProcedureModal()">Cerrar</button>
+    </div>
+
+    <!-- Menú de pausa -->
+    <div id="pause-menu" style="display: none">
+      <h2>Juego en Pausa</h2>
+      <button onclick="resumeGame()">Continuar</button>
+      <button onclick="showRules()">Reglas</button>
+      <button onclick="returnToMainMenu()">Volver al Menú Principal</button>
+    </div>
+    <div id="tower" style="display: none">
+      <div id="hud">
+        <table>
+          <tr>
+            <td><img src="images/coin.png" /></td>
+            <td><span id="score"></span></td>
+            <td><img src="images/heart.png" /></td>
+            <td><span id="lives"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Modal para preguntas matemáticas -->
+      <div id="math-question-modal" style="display: none">
+        <h2>Responde para ganar una vida extra</h2>
+        <img
+          id="math-question-image"
+          src=""
+          alt="Pregunta de integral definida"
+          style="width: 100%; max-width: 500px; margin-bottom: 20px"
+        />
+        <div
+          id="math-answer-options"
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+          "
+        >
+          <button
+            onclick="submitMathAnswer(0)"
+            style="background: none; border: none; padding: 0"
+          >
+            <img src="" alt="Opción 1" style="width: 100px; height: auto" />
+          </button>
+          <button
+            onclick="submitMathAnswer(1)"
+            style="background: none; border: none; padding: 0"
+          >
+            <img src="" alt="Opción 2" style="width: 100px; height: auto" />
+          </button>
+          <button
+            onclick="submitMathAnswer(2)"
+            style="background: none; border: none; padding: 0"
+          >
+            <img src="" alt="Opción 3" style="width: 100px; height: auto" />
+          </button>
+          <button
+            onclick="submitMathAnswer(3)"
+            style="background: none; border: none; padding: 0"
+          >
+            <img src="" alt="Opción 4" style="width: 100px; height: auto" />
+          </button>
+        </div>
+        <button
+          onclick="closeMathQuestionModal()"
+          style="
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+          "
+        >
+          Cerrar
+        </button>
+      </div>
+
+      <!-- Modal para mensajes -->
+      <div id="message-modal" style="display: none">
+        <h2 id="message-title"></h2>
+        <p id="message-text"></p>
+        <button onclick="closeMessageModal()">Aceptar</button>
+      </div>
+
+      <canvas id="canvas">
+        <div class="unsupported">
+          Sorry, this example cannot be run because your browser does not
+          support the &lt;canvas&gt; element
+        </div>
+      </canvas>
+
+      <div id="instructions">
+        <b>W/A/S/D</b> para moverte, <b>ESPACIO</b> para saltar
+        <span id="debug"></span>
+      </div>
+    </div>
+
+    <script src="js/fpsmeter.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/tower.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

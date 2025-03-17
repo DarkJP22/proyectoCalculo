@@ -1,0 +1,313 @@
+body {
+  background: #111;
+}
+#tower {
+  position: relative;
+  margin: 1em auto;
+  width: 512px;
+  height: 384px;
+  border: 4px solid #c080c0;
+}
+#hud {
+  position: absolute;
+  bottom: 0em;
+  width: auto; /* Cambia el ancho a automático para que se ajuste al contenido */
+  background-color: red;
+  opacity: 0.8;
+  border: 4px solid black;
+  padding: 5px; /* Añade un poco de espacio interno */
+}
+
+#hud table {
+  width: auto; /* Ajusta el ancho de la tabla al contenido */
+}
+
+#hud td {
+  text-align: center;
+  color: yellow;
+  font-size: 1.5em; /* Tamaño de fuente para las vidas */
+  font-family: "Cherry Swash", cursive;
+  padding: 0 5px; /* Añade un poco de espacio entre los elementos */
+}
+
+#hud img {
+  width: 24px; /* Tamaño de las imágenes (monedas y corazones) */
+  height: 24px;
+  vertical-align: middle; /* Alinea las imágenes verticalmente con el texto */
+}
+#score {
+  color: yellow;
+  font-size: 2em;
+  font-family: "Cherry Swash", cursive;
+}
+#canvas {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+#instructions {
+  font-style: italic;
+  color: #999;
+  font-size: 9pt;
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+#instructions b {
+  color: #ddd;
+}
+@media screen and (min-width: 0px) and (min-height: 0px) {
+  #tower {
+    width: 512px;
+    height: 384px;
+    font-size: 7pt;
+  }
+} /* block = 16 */
+@media screen and (min-width: 840px) and (min-height: 530px) {
+  #tower {
+    width: 640px;
+    height: 480px;
+    font-size: 9pt;
+  }
+} /* block = 20 */
+@media screen and (min-width: 968px) and (min-height: 626px) {
+  #tower {
+    width: 768px;
+    height: 576px;
+    font-size: 11pt;
+  }
+} /* block = 24 */
+@media screen and (min-width: 1096px) and (min-height: 722px) {
+  #tower {
+    width: 896px;
+    height: 672px;
+    font-size: 13pt;
+  }
+} /* block = 28 */
+@media screen and (min-width: 1224px) and (min-height: 818px) {
+  #tower {
+    width: 1024px;
+    height: 768px;
+    font-size: 15pt;
+  }
+} /* block = 32 */
+
+#main-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+#main-menu button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#main-menu button:hover {
+  background: #45a049;
+}
+
+#rules,
+#credits {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+#rules button,
+#credits button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#rules button:hover,
+#credits button:hover {
+  background: #e53935;
+}
+#pause-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+#pause-menu button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#pause-menu button:hover {
+  background: #45a049;
+}
+#rules {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  z-index: 1001; /* Asegura que esté por encima del menú de pausa (z-index: 1000) */
+}
+#math-question-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  z-index: 1001; /* Asegura que esté por encima de todo */
+}
+
+#math-question-modal input {
+  margin: 10px 0;
+  padding: 5px;
+  font-size: 16px;
+}
+
+#math-question-modal button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#math-question-modal button:hover {
+  background: #45a049;
+}
+#message-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  z-index: 1001; /* Asegura que esté por encima de todo */
+}
+#message-modal h2 {
+  color: #f44336; /* Color rojo para el título */
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+#message-modal p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#message-modal button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#message-modal button:hover {
+  background: #45a049;
+}
+
+#math-answer-options button {
+  background: #555; /* Color gris por defecto */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#math-answer-options button:hover {
+  background: #777; /* Color gris más claro al pasar el mouse */
+}
+
+#math-answer-options button:disabled {
+  cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
+}
+
+#feedback-modal,
+#procedure-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  z-index: 1001;
+}
+
+#feedback-modal button,
+#procedure-modal button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#feedback-modal button:hover,
+#procedure-modal button:hover {
+  background: #45a049;
+}
+
+#feedback-questions-list button {
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+}

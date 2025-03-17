@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "questionImage": "images/questions/Pregunta1/integral_question_1.png",
+      "procedureImage": "images/questions/Pregunta1/retroA1.png",
+      "options": [
+        { "image": "images/questions/Pregunta1/option_1_1.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta1/option_1_2.png", "isCorrect": true },
+        { "image": "images/questions/Pregunta1/option_1_3.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta1/option_1_4.png", "isCorrect": false }
+      ]
+    },
+    {
+      "id": 2,
+      "questionImage": "images/questions/Pregunta2/integral_question_2.png",
+      "procedureImage": "images/questions/Pregunta2/retroA2.png",
+      "options": [
+        { "image": "images/questions/Pregunta2/option_2_1.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta2/option_2_2.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta2/option_2_3.png", "isCorrect": true },
+        { "image": "images/questions/Pregunta2/option_2_4.png", "isCorrect": false }
+      ]
+    },
+    {
+      "id": 3,
+      "questionImage": "images/questions/Pregunta3/integral_question_3.png",
+      "procedureImage": "images/questions/Pregunta3/retroA3.png",
+      "options": [
+        { "image": "images/questions/Pregunta3/option_3_1.png", "isCorrect": true },
+        { "image": "images/questions/Pregunta3/option_3_2.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta3/option_3_3.png", "isCorrect": false },
+        { "image": "images/questions/Pregunta3/option_3_4.png", "isCorrect": false }
+      ]
+    }
+  ]
