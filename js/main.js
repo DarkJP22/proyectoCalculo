@@ -21,7 +21,7 @@ const domElements = {
   feedbackModal: document.getElementById("feedback-modal"),
   feedbackQuestionsList: document.getElementById("feedback-questions-list"),
   procedureModal: document.getElementById("procedure-modal"),
-  procedureImage: document.getElementById("procedure-image")
+  procedureImage: document.getElementById("procedure-image"),
 };
 
 // Funciones para mostrar y ocultar reglas y créditos
@@ -46,6 +46,8 @@ function startGame() {
   isPaused = false;
   domElements.mainMenu.style.display = "none";
   domElements.tower.style.display = "block";
+  startMusic();
+  stopMenuMusic();
 }
 
 function togglePause() {
@@ -54,6 +56,11 @@ function togglePause() {
   isPaused = !isPaused;
   domElements.pauseMenu.style.display = isPaused ? "block" : "none";
   player.paused = isPaused;
+  if (isPaused) {
+    backgroundMusic.pause(); // Pausar la música
+  } else {
+    backgroundMusic.play(); // Reanudar la música
+  }
 }
 
 function resumeGame() {
@@ -67,6 +74,8 @@ function returnToMainMenu() {
   const acceptButton = domElements.messageModal.querySelector("button");
   acceptButton.onclick = () => {
     closeMessageModal();
+    stopMusic(); 
+    startMenuMusic(); 
     window.location.reload();
   };
 }
@@ -74,12 +83,12 @@ function returnToMainMenu() {
 // Funciones de manejo de preguntas
 function loadQuestions() {
   fetch("images/questions/questions.json")
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       questions = data;
       availableQuestions = [...data];
     })
-    .catch(error => console.error("Error al cargar las preguntas:", error));
+    .catch((error) => console.error("Error al cargar las preguntas:", error));
 }
 
 function getRandomQuestion() {
@@ -96,7 +105,10 @@ function showMathQuestion() {
   isPaused = true;
 
   if (availableQuestions.length === 0) {
-    showMessageModal("Vuelve pronto", `No hay más preguntas disponibles. Puntos obtenidos: ${player.score}`);
+    showMessageModal(
+      "Vuelve pronto",
+      `No hay más preguntas disponibles. Puntos obtenidos: ${player.score}`
+    );
     player.paused = false;
     isPaused = false;
     return;
@@ -104,7 +116,10 @@ function showMathQuestion() {
 
   currentQuestion = getRandomQuestion();
   if (!currentQuestion) {
-    showMessageModal("Error", "Hubo un problema al cargar la pregunta. Inténtalo de nuevo.");
+    showMessageModal(
+      "Error",
+      "Hubo un problema al cargar la pregunta. Inténtalo de nuevo."
+    );
     player.paused = false;
     isPaused = false;
     return;
@@ -112,10 +127,11 @@ function showMathQuestion() {
 
   domElements.mathQuestionImage.src = currentQuestion.questionImage;
   currentQuestion.options.forEach((option, index) => {
-    domElements.mathAnswerOptions[index].querySelector("img").src = option.image;
+    domElements.mathAnswerOptions[index].querySelector("img").src =
+      option.image;
   });
 
-  domElements.mathAnswerOptions.forEach(button => {
+  domElements.mathAnswerOptions.forEach((button) => {
     button.disabled = false;
     button.style.backgroundColor = "#555";
     button.style.cursor = "pointer";
@@ -127,11 +143,16 @@ function showMathQuestion() {
 function submitMathAnswer(selectedOptionIndex) {
   if (!currentQuestion) return;
 
-  const correctAnswerIndex = currentQuestion.options.findIndex(option => option.isCorrect);
+  const correctAnswerIndex = currentQuestion.options.findIndex(
+    (option) => option.isCorrect
+  );
 
   if (!answeredQuestions.includes(currentQuestion)) {
     answeredQuestions.push(currentQuestion);
-    localStorage.setItem("answeredQuestions", JSON.stringify(answeredQuestions));
+    localStorage.setItem(
+      "answeredQuestions",
+      JSON.stringify(answeredQuestions)
+    );
   }
 
   domElements.mathAnswerOptions.forEach((button, index) => {
@@ -151,12 +172,19 @@ function submitMathAnswer(selectedOptionIndex) {
       const coinsToLose = Math.floor(player.score * 0.25);
       player.score = Math.max(0, player.score - coinsToLose);
       if (window.renderer) window.renderer.renderScore();
-      showMessageModal("¡Correcto!", `Ganaste una vida extra. Perdiste ${coinsToLose} monedas.`);
+      showMessageModal(
+        "¡Correcto!",
+        `Ganaste una vida extra. Perdiste ${coinsToLose} monedas.`
+      );
       player.lives++;
       player.x = player.savedX;
       player.y = player.savedY;
     } else {
-      showMessageModal("Incorrecto", "¡Juego terminado!", "Tus puntos son los siguientes: " + player.score);
+      showMessageModal(
+        "Incorrecto",
+        "¡Juego terminado!",
+        "Tus puntos son los siguientes: " + player.score
+      );
       player.gameOver();
     }
     closeMathQuestionModal();
@@ -166,7 +194,7 @@ function submitMathAnswer(selectedOptionIndex) {
 }
 
 function closeMathQuestionModal() {
-  domElements.mathAnswerOptions.forEach(button => {
+  domElements.mathAnswerOptions.forEach((button) => {
     button.disabled = false;
     button.style.backgroundColor = "#555";
     button.style.cursor = "pointer";
@@ -199,7 +227,8 @@ function showFeedback() {
   domElements.feedbackQuestionsList.innerHTML = "";
 
   if (answeredQuestions.length === 0) {
-    domElements.feedbackQuestionsList.innerHTML = "<p>No has respondido ninguna pregunta todavía.</p>";
+    domElements.feedbackQuestionsList.innerHTML =
+      "<p>No has respondido ninguna pregunta todavía.</p>";
   } else {
     answeredQuestions.forEach((question, index) => {
       const button = document.createElement("button");
@@ -228,15 +257,66 @@ function closeProcedureModal() {
 // Cargar preguntas respondidas desde localStorage
 function loadAnsweredQuestions() {
   const storedAnsweredQuestions = localStorage.getItem("answeredQuestions");
-  answeredQuestions = storedAnsweredQuestions ? JSON.parse(storedAnsweredQuestions) : [];
+  answeredQuestions = storedAnsweredQuestions
+    ? JSON.parse(storedAnsweredQuestions)
+    : [];
 }
 
 // Event listeners
-document.addEventListener("keydown", event => {
+document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") togglePause();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   loadQuestions();
   loadAnsweredQuestions();
+  startMenuMusic();
 });
+
+const backgroundMusic = document.getElementById("background-music");
+const menuMusic = document.getElementById('menu-music');
+const coinSound = document.getElementById('coin-sound');
+const hitSound = document.getElementById('hit-sound');
+
+// Iniciar música de fondo del juego
+function startMusic() {
+  backgroundMusic.play();
+  backgroundMusic.volume = 0.15; // Ajusta el volumen al 15%
+}
+
+function stopMusic() {
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+}
+
+// Iniciar música del menú
+function startMenuMusic() {
+    menuMusic.volume = 0.12; // Ajusta el volumen al 12%
+    menuMusic.play().catch(error => {
+        console.error("Error al reproducir la música del menú:", error);
+    });
+}
+
+// Detener música del menú
+function stopMenuMusic() {
+    menuMusic.pause();
+    menuMusic.currentTime = 0; // Reinicia la música al principio
+}
+
+// Reproducir sonido de la moneda
+function playCoinSound() {
+  coinSound.volume = 0.11; // Ajusta el volumen al 11%
+  coinSound.currentTime = 0; // Reinicia el sonido para que se reproduzca desde el principio
+  coinSound.play().catch(error => {
+      console.error("Error al reproducir el sonido de la moneda:", error);
+  });
+}
+
+// Reproducir sonido de golpe
+function playHitSound() {
+  hitSound.volume = 0.11; // Ajusta el volumen al 11%
+  hitSound.currentTime = 0; // Reinicia el sonido para que se reproduzca desde el principio
+  hitSound.play().catch(error => {
+      console.error("Error al reproducir el sonido de golpe:", error);
+  });
+}

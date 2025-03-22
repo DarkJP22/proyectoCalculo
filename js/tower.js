@@ -658,6 +658,7 @@ var player;
     collectCoin: function (point) {
       point.cell.coin = false;
       this.score = this.score + 50;
+      playCoinSound();
     },
 
     startFalling: function (allowFallingJump) {
@@ -726,6 +727,8 @@ var player;
     hitMonster: function () {
       this.hurting = true;
       this.lives--; // Pierde una vida
+
+      playHitSound();
 
       // Actualizar el contador de vidas en el HUD
       if (window.renderer) {
@@ -801,6 +804,7 @@ var player;
         "¡Juego terminado!",
         "Puntuación final: " + player.score
       );
+      stopMusic();
 
       // Cambiar el comportamiento del botón "Aceptar" para reiniciar el juego
       const acceptButton = document
